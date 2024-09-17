@@ -1,0 +1,243 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>KnuFord - Free Bootstrap 5 Template by Colorlib</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.5.6/css/ionicons.min.css">
+  <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+  <link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
+  <link rel="stylesheet" href="{% static 'css/tiny-slider.css' %}">
+  <link rel="stylesheet" href="{% static 'css/glightbox.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/aos.css' %}">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg fixed-top ftco-navbar-light" id="navbar">
+    <div class="container">
+      <a class="navbar-brand align-items-center" href="{% url 'main' %}">
+        Javohir
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="fa fa-bars"></span> Menu
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="{% url 'main' %}#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'main' %}#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'main' %}#services">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'main' %}#portfolio">Portfolio</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'main' %}#pricing">Pricing</a></li>
+          <li class="nav-item"><a class="nav-link active" href="{% url 'main' %}#blog">Blog</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'main' %}#contactme">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <section class="hero-wrap hero-wrap-2" style="background-image: url({% static 'images/bg_1.jpg' %});">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row no-gutters slider-text align-items-center justify-content-center">
+        <div class="col-md-9 pt-5 mt-5 text-center">
+          <p class="breadcrumbs"><span class="me-2"><a href="{% url 'main' %}">Home <i
+                  class="fa fa-chevron-right"></i></a></span> <span class="me-2"><a
+                href="">Blog <i
+                  class="fa fa-chevron-right"></i></a></span> <span>Blog Single <i
+                class="fa fa-chevron-right"></i></span></p>
+          <h1 class="mb-0 bread">Blog Details</h1>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="ftco-section">
+    <div class="container">
+      <div class="row g-lg-5">
+        <div class="col-lg-12 blog-single">
+          <h2 class="mb-3">{{article.title}}</h2>
+          <p>{{article.description}}</p>
+          <div class="tag-widget post-tag-container mb-5 mt-5">
+            <div class="tagcloud">
+              {% for tag in article.tag.all %}
+              <a href="" class="tag-cloud-link">{{tag}}</a>
+              {% endfor %}
+            </div>
+          </div>
+          <div class="pt-5 mt-5">
+            <h3 class="mb-5" style="font-size: 34px;">{{article.comments.count}} Comments</h3>
+            <ul class="comment-list">
+              {% for comment in comments %}
+              <li class="comment">
+                <div class="vcard bio">
+                  {% if comment.image %}
+                  <img src="{{comment.image.url}}" alt="Image placeholder"  >
+                  {% else %}
+                  <img src="{% static 'images/image_2.jpg' %}" alt="Image placeholder"  >
+                  {% endif %}
+                </div>
+                <div class="comment-body">
+                  <h3>{{comment.author_name}}</h3>
+                  <div class="meta">{{comment.date}}</div>
+                  <p>{{comment.comment}}</p>
+                  <p><a href="" class="reply">Reply</a></p>
+                </div>
+              </li>
+              {% endfor %}
+            </ul>
+
+            <div class="comment-form-wrap pt-5">
+              <h3 class="mb-5" style="font-size: 34px;">Leave a comment</h3>
+              <form method="post" class="p-4 p-lg-5 comment-form" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="name">Name *</label>
+                      {{form.author_name}}
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="email">Image *</label>
+                      {{form.image}}
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="message">Message</label>
+                      {{form.comment}}
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <button type="submit" class="btn py-3 px-4 btn-primary">Post Comment</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <section class="ftco-intro py-5 bg-primary">
+    <div class="container">
+      <div class="row d-flex justify-content-center">
+        <div class="col-lg-12">
+          <div class="row g-lg-5">
+            <div class="col-md-8 text-lg-right">
+              <h2 class="mb-0">Newsletter - Stay tune and get the latest update</h2>
+              <p>Far far away, behind the word mountains</p>
+            </div>
+            <div class="col-md-4 border-left d-flex align-items-center">
+              <form action="" method="post" class="subscribe-form">
+                {% csrf_token %}
+                <div class="form-group d-flex align-items-center">
+                  {{mail.mail}}
+                  <button type="submit" style="width: 0; opacity: 0;"><a href="" class="btn-icon me-2"></a></button>
+                  <span class="fa fa-paper-plane"></span>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer class="ftco-footer">
+    <div class="container-xl">
+      <div class="row mb-5 justify-content-between">
+        <div class="col-md-6 col-lg-4">
+          <div class="ftco-footer-widget mb-4">
+            <h2 class="ftco-heading-2 logo d-flex">
+              <a class="navbar-brand align-items-center" href="{% url 'main' %}">
+                Javohir
+              </a>
+            </h2>
+            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+            <ul class="ftco-footer-social list-unstyled mt-2">
+              <li><a href="https://x.com/"><span class="fa fa-twitter"></span></a></li>
+              <li><a href="https://www.facebook.com/"><span class="fa fa-facebook"></span></a></li>
+              <li><a href="https://www.instagram.com/"><span class="fa fa-instagram"></span></a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-2">
+          <div class="ftco-footer-widget mb-4">
+            <h2 class="ftco-heading-2">Services</h2>
+            <ul class="list-unstyled">
+              <li><a href=""><span class="ion ion-ios-arrow-round-forward me-2"></span>Web Design</a>
+              </li>
+              <li><a href=""><span class="ion ion-ios-arrow-round-forward me-2"></span>Web
+                  Development</a></li>
+              <li><a href=""><span class="ion ion-ios-arrow-round-forward me-2"></span>Graphic
+                  Design</a></li>
+              <li><a href=""><span class="ion ion-ios-arrow-round-forward me-2"></span>UI/UX Design</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="ftco-footer-widget mb-4">
+            <h2 class="ftco-heading-2">Have a Questions?</h2>
+            <div class="block-23 mb-3">
+              <ul>
+                <li><span class="icon fa fa-map marker"></span><span class="text">352, Navroz street, Chorbogh neighborhood, Zangiota district,
+                  Tashkent region</span></li>
+                <li><a href=""><span class="icon fa fa-phone"></span><span class="text">+998 88 599 65 56</span></a></li>
+                <li><a href=""><span class="icon fa fa-paper-plane"></span><span class="text"><span
+                        class="__cf_email__"
+                        data-cfemail="a7cec9c1c8e7dec8d2d5c3c8cac6cec989c4c8ca">alimovjavohir677@gmail.com</span></span></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid px-0 py-5 bg-darken">
+      <div class="container-xl">
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <p class="mb-0" style="font-size: 14px;">Copyright &copy;
+              <script data-cfasync="false"
+                src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+              <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made
+              with <i class="fa fa-heart color-danger" aria-hidden="true"></i> by <a href="https://colorlib.com"
+                target="_blank" rel="nofollow noopener">Colorlib</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'js/tiny-slider.js' %}"></script>
+  <script src="{% static 'js/glightbox.min.js' %}"></script>
+  <script src="{% static 'js/aos.js' %}"></script>
+  <script src="{% static 'js/typewritter.js' %}"></script>
+  <script src="{% static 'js/slideNav.min.js' %}"></script>
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+  <script src="{% static 'js/google-map.js' %}"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-23581568-13');
+  </script>
+</body>
+
+</html>
